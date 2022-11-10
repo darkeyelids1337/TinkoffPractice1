@@ -119,6 +119,7 @@ function deepEqual(firstObject, secondObject){
     let equal = true;
     let firstData ='',
         secondData ='';
+    if ((Object.keys(firstObject || {}).length != Object.keys(secondObject || {}).length)) return false;
     for(let key in firstObject){
         if (!(key in secondObject)) return false;
         if (typeof firstObject[key] !== 'object'){
@@ -130,6 +131,7 @@ function deepEqual(firstObject, secondObject){
     }
         return equal;
     }
+   
 module.exports = {
     isInteger,
     even,
