@@ -115,18 +115,21 @@ function sequence(start, step) {
  * deepEqual({arr: [22, 33], text: 'text'}, {arr: [22, 33], text: 'text'}) // true
  * deepEqual({arr: [22, 33], text: 'text'}, {arr: [22, 3], text: 'text2'}) // false
  */
-function deepEqual(firstObject, secondObject) {
+function deepEqual(firstObject, secondObject){
+    let equal = true;
     let firstData ='',
         secondData ='';
-     for(let key in firstObject){;
-        firstData += firstObject[key];
-     }
-     for(let key in secondObject){
-        secondData += secondObject[key];
-     }
-     return firstData === secondData;
-}
-
+    for(let key in firstObject){
+        if (!(key in secondObject)) return false;
+        if (typeof firstObject[key] !== 'object'){
+            firstData += firstObject[key];
+            secondData += secondObject[key];
+            equal = equal &&(firstData === secondData)
+        }
+        else equal = equal && deepEqual(firstObject[key], secondObject[key]);
+    }
+        return equal;
+    }
 module.exports = {
     isInteger,
     even,
